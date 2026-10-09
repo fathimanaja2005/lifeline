@@ -1,13 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "experimentalServices": {
+  "services": {
     "frontend": {
-      "entrypoint": "blood-bank-system/frontend",
-      "routePrefix": "/"
+      "root": "blood-bank-system/frontend"
     },
     "backend": {
-      "entrypoint": "blood-bank-system/backend",
-      "routePrefix": "/api"
+      "root": "blood-bank-system/backend",
+      "framework": "express"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": { "service": "backend" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "frontend" }
+    }
+  ]
 }
